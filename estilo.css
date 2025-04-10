@@ -10,8 +10,15 @@
 /* Style for the canvas and button container */
 .container {
     display: flex;
-    flex-direction: column; /* Stack canvas and button vertically */
-    align-items: center; /* Center align the items horizontally */
+    flex-direction: row; /* Align canvas and button in a row */
+    align-items: center; /* Vertically align the items */
 }
 
+/* Optional: Add some margin to canvas and button to separate them */
+canvas {
+    margin-right: 20px; /* Space between canvas and button */
+}
 
+button {
+    margin-left: 20px; /* Space between the button and canvas */
+}
