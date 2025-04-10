@@ -27,7 +27,7 @@ let Labirinto = [
 let jogador = {x:6, y:19};
 const tamanho = 30;
 
-canvas.addEventListener("mousemove", (event) => {
+tela.addEventListener("mousemove", (event) => {
     const rect = canvas.getBoundingClientRect(); // Get canvas position
     const mouseX = event.clientX - rect.left;    // X-coordinate relative to canvas
     const mouseY = event.clientY - rect.top;     // Y-coordinate relative to canvas
