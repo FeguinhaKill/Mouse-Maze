@@ -75,11 +75,11 @@ document.addEventListener("DOMContentLoaded", function() {
             startTime = Date.now();
             timerInterval = setInterval(updateTimer, 1000);
             timerRunning = true;
-            blueHovered = true;
+            PassouAzul = true;
         }
 
         // Stop the timer when green area (finish) is reached
-        if (blueHovered && Labirinto[gridY] && Labirinto[gridY][gridX] === 2) {
+        if (PassouAzul && Labirinto[gridY] && Labirinto[gridY][gridX] === 2) {
             clearInterval(timerInterval);
             timerRunning = false;
             alert("Você venceu! Tempo: " + document.getElementById('timer').textContent);
@@ -88,7 +88,7 @@ document.addEventListener("DOMContentLoaded", function() {
         }
 
         // Stop the game if the player hits a wall
-        if (Labirinto[gridY] && Labirinto[gridY][gridX] === 1) {
+        if (Labirinto[gridY] && Labirinto[gridY][gridX] && PassouAzul === 1) {
             clearInterval(timerInterval);
             timerRunning = false;
             alert("Você perdeu! Você bateu na parede.");
