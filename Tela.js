@@ -28,7 +28,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
     const tamanho = 30;
     let gameOver = false;
-    let player = { x: 0, y: 0 };
 
     // Mouse movement event
     tela.addEventListener("mousemove", (event) => {
@@ -36,24 +35,22 @@ document.addEventListener("DOMContentLoaded", function() {
             const rect = tela.getBoundingClientRect();
             const mouseX = event.clientX - rect.left;
             const mouseY = event.clientY - rect.top;
-            movePlayerToMouse(mouseX, mouseY);
+            checkCollisionWithMouse(mouseX, mouseY);
         }
     });
 
     // Start the game when the "Começar jogo" button is clicked
     document.getElementById('Start').addEventListener('click', () => {
         gameOver = false; // Reset game state
-        player = { x: 0, y: 0 }; // Reset player position
         render();
     });
 
     function render() {
         conteudo.clearRect(0, 0, tela.width, tela.height);
         drawLabirinto();
-        drawPlayer();
     }
 
-    function movePlayerToMouse(mouseX, mouseY) {
+    function checkCollisionWithMouse(mouseX, mouseY) {
         const gridX = Math.floor(mouseX / tamanho);
         const gridY = Math.floor(mouseY / tamanho);
 
@@ -62,10 +59,7 @@ document.addEventListener("DOMContentLoaded", function() {
             gameOver = true;
             alert("Você perdeu! Você bateu na parede.");
         } else {
-            // If not a wall, move the player
-            player.x = gridX;
-            player.y = gridY;
-            render();
+            render(); // Refresh the canvas if no collision
         }
     }
 
@@ -87,12 +81,6 @@ document.addEventListener("DOMContentLoaded", function() {
                 }
             }
         }
-    }
-
-    function drawPlayer() {
-        // Draw the player's position (based on mouse coordinates)
-        conteudo.fillStyle = 'red';
-        conteudo.fillRect(player.x * tamanho, player.y * tamanho, tamanho, tamanho);
     }
 
     // Initial render
