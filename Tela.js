@@ -35,7 +35,7 @@ tela.addEventListener("mousemove", (event) => {
     movePlayerToMouse(mouseX, mouseY); // Move player based on mouse position
 });
 function render() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear the canvas
+    conteudo.clearRect(0, 0, canvas.width, canvas.height); // Clear the canvas
     drawMaze(); // Draw the maze
     drawPlayer(); // Draw the player (mouse image)
 }
