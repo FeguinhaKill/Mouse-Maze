@@ -1,23 +1,20 @@
+/* Apply flexbox to the header */
+.header {
+    display: flex;
+    align-items: center; /* Align the items vertically centered */
+    justify-content: flex-start; /* Align the items horizontally starting from the left */
+    gap: 20px; /* Space between the title and the maze */
+    padding: 20px;
+}
+
+/* Style for the canvas and button container */
 .container {
-            display: flex;                /* Arrange elements in a row */
-            justify-content: center;       /* Center horizontally */
-            align-items: center;           /* Center vertically */
-            height: 100vh;                 /* Full viewport height */
-        }
+    display: flex;
+    flex-direction: column; /* Stack canvas and button vertically */
+    align-items: center; /* Center align the items horizontally */
+}
 
-        /* Position the canvas and button next to each other */
-        canvas {
-            border: 1px solid black;
-            margin-right: 20px;            /* Space between the canvas and button */
-        }
-
-        button {
-            font-size: 16px;               /* Make the button text a bit larger */
-            padding: 10px 20px;            /* Add some padding to the button */
-            cursor: pointer;              /* Change cursor on hover */
-        }
-
-        /* Center the title at the top */
-        h1 {
-            text-align: center;
-        }
+/* Optional: Add margin to canvas to separate it from the button */
+canvas {
+    margin-bottom: 20px;
+}
