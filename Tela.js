@@ -54,12 +54,18 @@ document.addEventListener("DOMContentLoaded", function() {
         const gridX = Math.floor(mouseX / tamanho);
         const gridY = Math.floor(mouseY / tamanho);
 
-        // Check if the mouse is over a wall
+        // Check if the mouse is over a wall (game over)
         if (Labirinto[gridY] && Labirinto[gridY][gridX] === 1) {
             gameOver = true;
             alert("Você perdeu! Você bateu na parede.");
+        }
+        // Check if the mouse is over the green space (level win)
+        else if (Labirinto[gridY] && Labirinto[gridY][gridX] === 2) {
+            gameOver = true;
+            alert("Você venceu! Avançando para o próximo nível.");
+            window.location.href = "level2.html"; // Redirect to level2
         } else {
-            render(); // Refresh the canvas if no collision
+            render(); // Refresh the canvas if no collision or win
         }
     }
 
