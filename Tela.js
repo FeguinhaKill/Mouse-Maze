@@ -5,7 +5,6 @@ document.addEventListener("DOMContentLoaded", function() {
         gameOver = false;
         startTime = null; 
         clearInterval(timerInterval);
-        render();
         document.getElementById('timer').textContent = "Tempo: 0s";
     
     let Labirinto = [
