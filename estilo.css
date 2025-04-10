@@ -1,39 +1,50 @@
-/* Apply flexbox to the body or a wrapper container */
+/* Reset default margin and padding for body */
 body {
+    margin: 0;
+    padding: 0;
     display: flex;
-    justify-content: center; /* Centers the entire layout horizontally */
+    justify-content: center; /* Centers the content horizontally */
     align-items: center; /* Centers the content vertically */
-    height: 100vh; /* Take full height of the viewport */
-    margin: 0; /* Remove default body margin */
+    height: 100vh; /* Full viewport height */
+    font-family: Arial, sans-serif;
 }
 
-/* Main wrapper to hold the content and the canvas */
-.wrapper {
-    display: flex;
-    justify-content: flex-start;
-    gap: 30px; /* Space between the maze and button */
-    align-items: center; /* Vertically center the items */
-}
-
-/* Title of the game */
-h1 {
-    margin: 0; /* Remove default margin */
-}
-
-/* Style for the canvas and button container */
+/* Main container that will hold the title, canvas, and button */
 .container {
-    display: flex;
-    flex-direction: column; /* Stack the canvas and button vertically */
-    align-items: center; /* Center align the items horizontally */
+    display: flex; /* Align items horizontally */
+    align-items: center; /* Vertically align items */
+    justify-content: flex-start; /* Align content to the left side */
+    gap: 20px; /* Space between title, maze, and button */
 }
 
-/* Optional styling for the canvas */
+/* Level title styling */
+h1 {
+    margin-right: 20px; /* Space between the title and maze */
+}
+
+/* Style for the canvas (maze) */
 canvas {
-    margin-bottom: 20px; /* Add space between canvas and button */
+    border: 1px solid black; /* Optional border for visibility */
 }
 
-/* Button style */
+/* Container for canvas and button (stack horizontally) */
+.canvas-container {
+    display: flex; /* Align canvas and button horizontally */
+    flex-direction: row; /* Align them side by side */
+    gap: 20px; /* Space between canvas and button */
+}
+
+/* Button styling */
 button {
     padding: 10px 20px;
+    background-color: #4CAF50; /* Green background */
+    color: white;
+    border: none;
+    border-radius: 5px;
     cursor: pointer;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #45a049; /* Darker green on hover */
 }
