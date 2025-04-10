@@ -55,16 +55,16 @@ function movePlayerToMouse(mouseX, mouseY) {
 function drawLabirinto() {
     for (let linha = 0; linha < Labirinto.length; linha++) {
         for (let coluna = 0; coluna < Labirinto[linha].length; coluna++) {
-            if (Labirinto[linha][coluna] === 1) {
+            if (Labirinto[linha][coluna] == 1) {
                 conteudo.fillStyle = 'black';
                 conteudo.fillRect(coluna * tamanho, linha * tamanho, tamanho, tamanho);
-            } else if (Labirinto[linha][coluna] === 0) {
+            } else if (Labirinto[linha][coluna] == 0) {
                 conteudo.fillStyle = 'white';
                 conteudo.fillRect(coluna * tamanho, linha * tamanho, tamanho, tamanho);
-            } else if (Labirinto[linha][coluna] === 2) {
+            } else if (Labirinto[linha][coluna] == 2) {
                 conteudo.fillStyle = 'green';
                 conteudo.fillRect(coluna * tamanho, linha * tamanho, tamanho, tamanho);
-            } else if (Labirinto[linha][coluna] === 3) {
+            } else if (Labirinto[linha][coluna] == 3) {
                 conteudo.fillStyle = 'blue';
                 conteudo.fillRect(coluna * tamanho, linha * tamanho, tamanho, tamanho);
             }
