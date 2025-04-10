@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", function() {
     const tela = document.getElementById('labrintotela');
     const conteudo = tela.getContext('2d');
-    
+
     let Labirinto = [
         [1, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
         [1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1],
@@ -27,8 +27,9 @@ document.addEventListener("DOMContentLoaded", function() {
 
     const tamanho = 30;
     let gameOver = false;
+    let timerInterval;
+    let startTime;
 
-    // Mouse movement event
     tela.addEventListener("mousemove", (event) => {
         if (!gameOver) {
             const rect = tela.getBoundingClientRect();
@@ -38,10 +39,12 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 
-    // Start the game when the "Começar jogo" button is clicked
     document.getElementById('Start').addEventListener('click', () => {
-        gameOver = false; // Reset game state
+        gameOver = false;
+        startTime = null; // Reset timer state
+        clearInterval(timerInterval); // Clear any existing interval
         render();
+        document.getElementById('timer').textContent = "Tempo: 0s"; // Reset timer display
     });
 
     function render() {
@@ -53,18 +56,35 @@ document.addEventListener("DOMContentLoaded", function() {
         const gridX = Math.floor(mouseX / tamanho);
         const gridY = Math.floor(mouseY / tamanho);
 
-        // Check if the mouse is over a wall (game over)
         if (Labirinto[gridY] && Labirinto[gridY][gridX] === 1) {
             gameOver = true;
+            clearInterval(timerInterval); // Stop the timer
             alert("Você perdeu! Você bateu na parede.");
-        }
-        // Check if the mouse is over the green space (level win)
-        else if (Labirinto[gridY] && Labirinto[gridY][gridX] === 2) {
+        } else if (Labirinto[gridY] && Labirinto[gridY][gridX] === 2) {
             gameOver = true;
+            clearInterval(timerInterval); // Stop the timer
             alert("Você venceu! Avançando para o próximo nível.");
-            window.location.href = "level2.html"; // Redirect to level2
+            window.location.href = "level2.html";
+        } else if (Labirinto[gridY] && Labirinto[gridY][gridX] === 3) {
+            // Mouse is over the blue area
+            if (!startTime) {
+                // Start the timer only if it's not already running
+                startTime = Date.now();
+                timerInterval = setInterval(updateTimer, 1000); // Update every second
+            }
         } else {
-            render(); // Refresh the canvas if no collision or win
+            // Mouse is not over the blue area, stop the timer
+            clearInterval(timerInterval);
+            startTime = null;
+            render(); // Refresh the canvas
+        }
+    }
+
+    function updateTimer() {
+        if (startTime && !gameOver) {
+            const currentTime = Date.now();
+            const elapsedTime = Math.floor((currentTime - startTime) / 1000);
+            document.getElementById('timer').textContent = `Tempo: ${elapsedTime}s`;
         }
     }
 
@@ -88,6 +108,11 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 
-    // Initial render
+    // Add a div to your HTML to display the timer
+    const timerDisplay = document.createElement('div');
+    timerDisplay.id = 'timer';
+    timerDisplay.textContent = 'Tempo: 0s';
+    document.querySelector('.container').appendChild(timerDisplay);
+
     render();
 });
