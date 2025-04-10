@@ -1,90 +1,100 @@
- document.addEventListener("DOMContentLoaded", function() {
-            const tela = document.getElementById('labrintotela');
-            const conteudo = tela.getContext('2d');
-            
-            let Labirinto = [
-                [1, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-                [1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1],
-                [1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 1],
-                [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1],
-                [1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 1, 1],
-                [1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 0, 0, 1, 1, 1, 0, 0, 1],
-                [1, 1, 1, 1, 1, 1, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1],
-                [1, 0, 0, 0, 1, 0, 0, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1],
-                [1, 0, 1, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 1],
-                [1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 0, 1, 0, 1, 0, 1],
-                [1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 0, 0, 1, 0, 0, 0, 1],
-                [1, 0, 1, 0, 0, 0, 0, 0, 1, 1, 0, 1, 1, 1, 0, 0, 1, 0, 1, 1],
-                [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 0, 0, 0, 1],
-                [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1],
-                [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 1],
-                [1, 0, 1, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 0, 1, 0, 1, 0, 0, 1],
-                [1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 0, 1, 0, 1, 1, 0, 1],
-                [1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 0, 0, 1],
-                [1, 0, 1, 0, 0, 0, 0, 1, 1, 0, 1, 0, 0, 0, 1, 0, 1, 0, 1, 1],
-                [1, 0, 0, 0, 0, 1, 2, 1, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1],
-                [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-            ];
+document.addEventListener("DOMContentLoaded", function() {
+    const tela = document.getElementById('labrintotela');
+    const conteudo = tela.getContext('2d');
+    
+    let Labirinto = [
+        [1, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+        [1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1],
+        [1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 1],
+        [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1],
+        [1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 1, 1],
+        [1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 0, 0, 1, 1, 1, 0, 0, 1],
+        [1, 1, 1, 1, 1, 1, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1],
+        [1, 0, 0, 0, 1, 0, 0, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1],
+        [1, 0, 1, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 1],
+        [1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 0, 1, 0, 1, 0, 1],
+        [1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 0, 0, 1, 0, 0, 0, 1],
+        [1, 0, 1, 0, 0, 0, 0, 0, 1, 1, 0, 1, 1, 1, 0, 0, 1, 0, 1, 1],
+        [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 0, 0, 0, 1],
+        [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1],
+        [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 1],
+        [1, 0, 1, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 0, 1, 0, 1, 0, 0, 1],
+        [1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 0, 1, 0, 1, 1, 0, 1],
+        [1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 0, 0, 1],
+        [1, 0, 1, 0, 0, 0, 0, 1, 1, 0, 1, 0, 0, 0, 1, 0, 1, 0, 1, 1],
+        [1, 0, 0, 0, 0, 1, 2, 1, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1],
+        [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+    ];
 
-            const tamanho = 30;
-            let gameOver = false;
+    const tamanho = 30;
+    let gameOver = false;
+    let player = { x: 0, y: 0 };
 
-            // Player position is now based on the mouse position
-            tela.addEventListener("mousemove", (event) => {
-                if (!gameOver) {
-                    const rect = tela.getBoundingClientRect();
-                    const mouseX = event.clientX - rect.left;
-                    const mouseY = event.clientY - rect.top;
-                    movePlayerToMouse(mouseX, mouseY);
-                }
-            });
+    // Mouse movement event
+    tela.addEventListener("mousemove", (event) => {
+        if (!gameOver) {
+            const rect = tela.getBoundingClientRect();
+            const mouseX = event.clientX - rect.left;
+            const mouseY = event.clientY - rect.top;
+            movePlayerToMouse(mouseX, mouseY);
+        }
+    });
 
-            function render() {
-                conteudo.clearRect(0, 0, tela.width, tela.height);
-                drawLabirinto();
-                drawPlayer();
-            }
+    // Start the game when the "Começar jogo" button is clicked
+    document.getElementById('Start').addEventListener('click', () => {
+        gameOver = false; // Reset game state
+        player = { x: 0, y: 0 }; // Reset player position
+        render();
+    });
 
-            function movePlayerToMouse(mouseX, mouseY) {
-                const gridX = Math.floor(mouseX / tamanho);
-                const gridY = Math.floor(mouseY / tamanho);
+    function render() {
+        conteudo.clearRect(0, 0, tela.width, tela.height);
+        drawLabirinto();
+        drawPlayer();
+    }
 
-                if (Labirinto[gridY] && Labirinto[gridY][gridX] === 1) {
-                    // If player hits a wall (1), game over
-                    gameOver = true;
-                    alert("Você perdeu! Você bateu na parede.");
-                } else {
-                    render(); // Move the player to the new position
-                }
-            }
+    function movePlayerToMouse(mouseX, mouseY) {
+        const gridX = Math.floor(mouseX / tamanho);
+        const gridY = Math.floor(mouseY / tamanho);
 
-            function drawLabirinto() {
-                for (let linha = 0; linha < Labirinto.length; linha++) {
-                    for (let coluna = 0; coluna < Labirinto[linha].length; coluna++) {
-                        if (Labirinto[linha][coluna] == 1) {
-                            conteudo.fillStyle = 'black';
-                            conteudo.fillRect(coluna * tamanho, linha * tamanho, tamanho, tamanho);
-                        } else if (Labirinto[linha][coluna] == 0) {
-                            conteudo.fillStyle = 'white';
-                            conteudo.fillRect(coluna * tamanho, linha * tamanho, tamanho, tamanho);
-                        } else if (Labirinto[linha][coluna] == 2) {
-                            conteudo.fillStyle = 'green';
-                            conteudo.fillRect(coluna * tamanho, linha * tamanho, tamanho, tamanho);
-                        } else if (Labirinto[linha][coluna] == 3) {
-                            conteudo.fillStyle = 'blue';
-                            conteudo.fillRect(coluna * tamanho, linha * tamanho, tamanho, tamanho);
-                        }
-                    }
-                }
-            }
-
-            function drawPlayer() {
-                const mouseX = event.clientX - tela.getBoundingClientRect().left;
-                const mouseY = event.clientY - tela.getBoundingClientRect().top;
-                conteudo.fillStyle = 'red';
-                conteudo.fillRect(mouseX - (mouseX % tamanho), mouseY - (mouseY % tamanho), tamanho, tamanho);
-            }
-
-            // Initial render
+        // Check if the mouse is over a wall
+        if (Labirinto[gridY] && Labirinto[gridY][gridX] === 1) {
+            gameOver = true;
+            alert("Você perdeu! Você bateu na parede.");
+        } else {
+            // If not a wall, move the player
+            player.x = gridX;
+            player.y = gridY;
             render();
-        });
+        }
+    }
+
+    function drawLabirinto() {
+        for (let linha = 0; linha < Labirinto.length; linha++) {
+            for (let coluna = 0; coluna < Labirinto[linha].length; coluna++) {
+                if (Labirinto[linha][coluna] == 1) {
+                    conteudo.fillStyle = 'black';
+                    conteudo.fillRect(coluna * tamanho, linha * tamanho, tamanho, tamanho);
+                } else if (Labirinto[linha][coluna] == 0) {
+                    conteudo.fillStyle = 'white';
+                    conteudo.fillRect(coluna * tamanho, linha * tamanho, tamanho, tamanho);
+                } else if (Labirinto[linha][coluna] == 2) {
+                    conteudo.fillStyle = 'green';
+                    conteudo.fillRect(coluna * tamanho, linha * tamanho, tamanho, tamanho);
+                } else if (Labirinto[linha][coluna] == 3) {
+                    conteudo.fillStyle = 'blue';
+                    conteudo.fillRect(coluna * tamanho, linha * tamanho, tamanho, tamanho);
+                }
+            }
+        }
+    }
+
+    function drawPlayer() {
+        // Draw the player's position (based on mouse coordinates)
+        conteudo.fillStyle = 'red';
+        conteudo.fillRect(player.x * tamanho, player.y * tamanho, tamanho, tamanho);
+    }
+
+    // Initial render
+    render();
+});
