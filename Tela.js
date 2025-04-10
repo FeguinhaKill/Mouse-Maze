@@ -30,36 +30,52 @@ document.addEventListener("DOMContentLoaded", function() {
     let startTime = null;
     let timerInterval;
 
-    document.getElementById('Start').addEventListener('click', () => {
-        gameOver = false;
-        startTime = Date.now(); // Set the start time when the game starts
-        clearInterval(timerInterval); // Clear any existing intervals
-        timerInterval = setInterval(updateTimer, 1000); // Start the timer
-        render();
-        document.getElementById('timer').textContent = "Tempo: 0s"; // Reset the timer display
+    // Variables to track the game state
+    let timerRunning = false;
+
+    tela.addEventListener("mousemove", (event) => {
+        if (!gameOver) {
+            const rect = tela.getBoundingClientRect();
+            const mouseX = event.clientX - rect.left;
+            const mouseY = event.clientY - rect.top;
+            checkCollisionWithMouse(mouseX, mouseY);
+        }
     });
+
+    function checkCollisionWithMouse(mouseX, mouseY) {
+        const gridX = Math.floor(mouseX / tamanho);
+        const gridY = Math.floor(mouseY / tamanho);
+
+        // Start the timer when the mouse hovers over the blue area
+        if (Labirinto[gridY] && Labirinto[gridY][gridX] === 3 && !timerRunning) {
+            // Start the timer only if it's not already running
+            startTime = Date.now();
+            timerInterval = setInterval(updateTimer, 1000); // Update every second
+            timerRunning = true; // Set the flag that the timer is running
+        }
+
+        // Stop the timer when the mouse hovers over the green area
+        if (Labirinto[gridY] && Labirinto[gridY][gridX] === 2) {
+            clearInterval(timerInterval); // Stop the timer
+            timerRunning = false; // Reset timer state
+            alert("Você venceu! Tempo: " + document.getElementById('timer').textContent);
+            gameOver = true; // Mark game as over
+        }
+
+        // Stop the timer if the mouse hits the wall (black area)
+        if (Labirinto[gridY] && Labirinto[gridY][gridX] === 1) {
+            clearInterval(timerInterval); // Stop the timer
+            timerRunning = false;
+            alert("Você perdeu! Você bateu na parede.");
+            gameOver = true; // Mark game as over
+        }
+    }
 
     function updateTimer() {
         if (startTime && !gameOver) {
             const currentTime = Date.now();
             const elapsedTime = Math.floor((currentTime - startTime) / 1000);
             document.getElementById('timer').textContent = `Tempo: ${elapsedTime}s`;
-        }
-    }
-
-    function checkCollisionWithMouse(mouseX, mouseY) {
-        const gridX = Math.floor(mouseX / tamanho);
-        const gridY = Math.floor(mouseY / tamanho);
-
-        if (Labirinto[gridY] && Labirinto[gridY][gridX] === 1) {
-            gameOver = true;
-            clearInterval(timerInterval); // Stop the timer
-            alert("Você perdeu! Você bateu na parede.");
-        } else if (Labirinto[gridY] && Labirinto[gridY][gridX] === 2) {
-            gameOver = true;
-            clearInterval(timerInterval); // Stop the timer
-            alert("Você venceu!");
-            window.location.href = "level2.html";
         }
     }
 
@@ -72,23 +88,23 @@ document.addEventListener("DOMContentLoaded", function() {
         for (let linha = 0; linha < Labirinto.length; linha++) {
             for (let coluna = 0; coluna < Labirinto[linha].length; coluna++) {
                 if (Labirinto[linha][coluna] === 1) {
-                    conteudo.fillStyle = 'black';
+                    conteudo.fillStyle = 'black'; // Wall
                     conteudo.fillRect(coluna * tamanho, linha * tamanho, tamanho, tamanho);
                 } else if (Labirinto[linha][coluna] === 0) {
-                    conteudo.fillStyle = 'white';
+                    conteudo.fillStyle = 'white'; // Empty space
                     conteudo.fillRect(coluna * tamanho, linha * tamanho, tamanho, tamanho);
                 } else if (Labirinto[linha][coluna] === 2) {
-                    conteudo.fillStyle = 'green';
+                    conteudo.fillStyle = 'green'; // Finish
                     conteudo.fillRect(coluna * tamanho, linha * tamanho, tamanho, tamanho);
                 } else if (Labirinto[linha][coluna] === 3) {
-                    conteudo.fillStyle = 'blue';
+                    conteudo.fillStyle = 'blue'; // Start point
                     conteudo.fillRect(coluna * tamanho, linha * tamanho, tamanho, tamanho);
                 }
             }
         }
     }
 
-    // Display timer
+    // Add a div to display the timer
     const timerDisplay = document.createElement('div');
     timerDisplay.id = 'timer';
     timerDisplay.textContent = 'Tempo: 0s';
