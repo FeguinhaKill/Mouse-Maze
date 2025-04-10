@@ -63,7 +63,7 @@ document.addEventListener("DOMContentLoaded", function() {
         } else if (Labirinto[gridY] && Labirinto[gridY][gridX] === 2) {
             gameOver = true;
             clearInterval(timerInterval); // Stop the timer
-            alert("Você venceu! Seu tempo foi de: "+timer+". Clique 'ok' para avançar de nível!");
+            alert("Você venceu!");
             window.location.href = "level2.html";
         } else if (Labirinto[gridY] && Labirinto[gridY][gridX] === 3) {
             // Mouse is over the blue area
