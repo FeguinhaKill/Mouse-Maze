@@ -1,24 +1,39 @@
-/* Apply flexbox to the header */
-.header {
+/* Apply flexbox to the body or a wrapper container */
+body {
     display: flex;
-    align-items: center; /* Align the items vertically centered */
-    justify-content: flex-start; /* Align the items horizontally starting from the left */
-    gap: 20px; /* Space between the title and the maze */
-    padding: 20px;
+    justify-content: center; /* Centers the entire layout horizontally */
+    align-items: center; /* Centers the content vertically */
+    height: 100vh; /* Take full height of the viewport */
+    margin: 0; /* Remove default body margin */
+}
+
+/* Main wrapper to hold the content and the canvas */
+.wrapper {
+    display: flex;
+    justify-content: flex-start;
+    gap: 30px; /* Space between the maze and button */
+    align-items: center; /* Vertically center the items */
+}
+
+/* Title of the game */
+h1 {
+    margin: 0; /* Remove default margin */
 }
 
 /* Style for the canvas and button container */
 .container {
     display: flex;
-    flex-direction: row; /* Align canvas and button in a row */
-    align-items: center; /* Vertically align the items */
+    flex-direction: column; /* Stack the canvas and button vertically */
+    align-items: center; /* Center align the items horizontally */
 }
 
-/* Optional: Add some margin to canvas and button to separate them */
+/* Optional styling for the canvas */
 canvas {
-    margin-right: 20px; /* Space between canvas and button */
+    margin-bottom: 20px; /* Add space between canvas and button */
 }
 
+/* Button style */
 button {
-    margin-left: 20px; /* Space between the button and canvas */
+    padding: 10px 20px;
+    cursor: pointer;
 }
