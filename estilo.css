@@ -4,3 +4,10 @@
     align-items: center; /* Center align the items horizontally */
 }
 
+.header {
+    display: flex;
+    align-items: center; /* Align the items vertically centered */
+    justify-content: flex-start; /* Align the items horizontally starting from the left */
+    gap: 20px; /* Space between the title and the maze */
+    padding: 20px;
+}
