@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jogo de Labirinto</title>
+    <style>
+        /* This will apply to the entire body */
+        body {
+            display: flex;
+            justify-content: center; /* Center horizontally */
+            align-items: center;     /* Center vertically */
+            height: 100vh;           /* Make sure the body takes up full height */
+            margin: 0;               /* Remove default margin */
+            flex-direction: column;  /* Stack elements (h1, button, canvas) vertically */
+            text-align: center;      /* Center the text */
+        }
+
+        canvas {
+            border: 1px solid black;
+        }
+
+        h1, button {
+            margin-bottom: 20px; /* Space between the heading, button, and canvas */
+        }
+    </style>
+</head>
+<body>
+    <h1>Nível 1</h1>
+    <button id="Start">Começar jogo</button>
+    <canvas id="labrintotela" width="600" height="630"></canvas>
+    
+    <script src="Tela.js"></script>
+</body>
+</html>
