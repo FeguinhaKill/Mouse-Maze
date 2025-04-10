@@ -2,11 +2,6 @@ document.addEventListener("DOMContentLoaded", function() {
     const tela = document.getElementById('labrintotela');
     const conteudo = tela.getContext('2d');
     
-        gameOver = false;
-        startTime = null; 
-        clearInterval(timerInterval);
-        document.getElementById('timer').textContent = "Tempo: 0s";
-    
     let Labirinto = [
         [1, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
         [1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1],
@@ -118,6 +113,10 @@ document.addEventListener("DOMContentLoaded", function() {
     timerDisplay.id = 'timer';
     timerDisplay.textContent = 'Tempo: 0s';
     document.querySelector('.container').appendChild(timerDisplay);
-
-    render();
+    
+        gameOver = false;
+        startTime = null;
+        clearInterval(timerInterval);
+        document.getElementById('timer').textContent = "Tempo: 0s";
+        render();
 });
