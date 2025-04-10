@@ -1,7 +1,13 @@
 document.addEventListener("DOMContentLoaded", function() {
     const tela = document.getElementById('labrintotela');
     const conteudo = tela.getContext('2d');
-
+    
+        gameOver = false;
+        startTime = null; 
+        clearInterval(timerInterval);
+        render();
+        document.getElementById('timer').textContent = "Tempo: 0s";
+    
     let Labirinto = [
         [1, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
         [1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1],
