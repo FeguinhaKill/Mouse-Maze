@@ -33,6 +33,26 @@ document.addEventListener("DOMContentLoaded", function() {
     // Variables to track the game state
     let timerRunning = false;
 
+    const startButton = document.getElementById('Start');
+    startButton.addEventListener('click', resetGame);
+
+    function resetGame() {
+        // Reset game state
+        gameOver = false;
+        timerRunning = false;
+        clearInterval(timerInterval);
+        startTime = null;
+
+        // Reset the timer display
+        timerDisplay.textContent = 'Tempo: 0s';
+
+        // Re-render the maze
+        render();
+
+        // Re-enable mouse movement interaction
+        tela.addEventListener("mousemove", mouseMoveHandler);
+    }
+    
     tela.addEventListener("mousemove", (event) => {
         if (!gameOver) {
             const rect = tela.getBoundingClientRect();
