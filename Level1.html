@@ -9,18 +9,22 @@
     <link rel="stylesheet" href="estilo.css">
 </head>
 <body>
-    <!-- Main wrapper to contain the title, maze, and button -->
-    <div class="wrapper">
-        <!-- Title on the left -->
+    <!-- Container for the level title, maze, and button -->
+    <div class="container">
+        <!-- Level title -->
         <h1>Nível 1</h1>
-        
-        <!-- Maze and button container (stacked vertically) -->
-        <div class="container">
+
+        <!-- Container for the canvas (maze) and button side by side -->
+        <div class="canvas-container">
+            <!-- The maze (canvas) -->
             <canvas id="labrintotela" width="600" height="630"></canvas>
+
+            <!-- Button to start the game -->
             <button id="Start">Começar jogo</button>
         </div>
     </div>
 
+    <!-- JavaScript file for the game logic -->
     <script src="Tela.js"></script>
 </body>
 </html>
