@@ -114,9 +114,6 @@ document.addEventListener("DOMContentLoaded", function() {
     timerDisplay.textContent = 'Tempo: 0s';
     document.querySelector('.container').appendChild(timerDisplay);
     
-        gameOver = false;
-        startTime = null;
-        clearInterval(timerInterval);
-        document.getElementById('timer').textContent = "Tempo: 0s";
+        
         render();
 });
