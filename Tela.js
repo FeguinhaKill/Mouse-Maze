@@ -78,7 +78,7 @@ document.addEventListener("DOMContentLoaded", function() {
         if (Labirinto[gridY] && Labirinto[gridY][gridX] === 2) {
             clearInterval(timerInterval); // Stop the timer
             timerRunning = false; // Reset timer state
-            alert("Você venceu! Tempo: " + document.getElementById('timer').textContent);
+            alert("Você venceu! " + document.getElementById('timer').textContent);
             gameOver = true; // Mark game as over
         }
 
