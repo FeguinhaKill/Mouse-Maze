@@ -2,92 +2,98 @@ document.addEventListener("DOMContentLoaded", function() {
     const tela = document.getElementById('labrintotela');
     const conteudo = tela.getContext('2d');
     
-    let Labirinto = [
-        [1, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-        [1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1],
-        [1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 1],
-        [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1],
-        [1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 1, 1],
-        [1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 0, 0, 1, 1, 1, 0, 0, 1],
-        [1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 0, 1, 1, 0, 0, 0, 0, 1, 0, 1],
-        [1, 0, 0, 0, 1, 0, 0, 1, 1, 0, 0, 0, 1, 1, 1, 1, 0, 1, 0, 1],
-        [1, 0, 1, 0, 0, 0, 1, 1, 1, 0, 1, 0, 0, 0, 0, 1, 0, 1, 0, 1],
-        [1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 0, 0, 1, 0, 0, 0, 1],
-        [1, 0, 1, 0, 0, 0, 0, 0, 1, 1, 0, 1, 1, 1, 0, 0, 1, 0, 1, 1],
-        [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 0, 0, 0, 1],
-        [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1],
-        [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 1],
-        [1, 0, 1, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 0, 1, 0, 1, 0, 0, 1],
-        [1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 0, 1, 0, 1, 1, 0, 1],
-        [1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 0, 0, 1],
-        [1, 0, 1, 0, 0, 0, 0, 1, 1, 0, 1, 0, 0, 0, 1, 0, 1, 0, 1, 1],
-        [1, 0, 0, 0, 0, 1, 2, 1, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1],
-        [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-    ];
-
     const tamanho = 30;
     let gameOver = false;
     let startTime = null;
     let timerInterval;
-
-    // Variables to track the game state
     let timerRunning = false;
+    let blueHovered = false; // Track if blue (start) has been hovered
+    let currentLevel = 0; // Track the current level
+    let Labirinto;
 
-    const startButton = document.getElementById('Start');
-    startButton.addEventListener('click', resetGame);
+    const levels = [
+        // Level 1
+        [
+            [1, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+            [1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 1],
+            [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1],
+            [1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 1, 1],
+            [1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 0, 0, 1, 1, 1, 0, 0, 1],
+            [1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 0, 1, 1, 0, 0, 0, 0, 1, 0, 1],
+            [1, 0, 0, 0, 1, 0, 0, 1, 1, 0, 0, 0, 1, 1, 1, 1, 0, 1, 0, 1],
+            [1, 0, 1, 0, 0, 0, 1, 1, 1, 0, 1, 0, 0, 0, 0, 1, 0, 1, 0, 1],
+            [1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 0, 0, 1, 0, 0, 0, 1],
+            [1, 0, 1, 0, 0, 0, 0, 0, 1, 1, 0, 1, 1, 1, 0, 0, 1, 0, 1, 1],
+            [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 0, 0, 0, 1],
+            [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1],
+            [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 1],
+            [1, 0, 1, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 0, 1, 0, 1, 0, 0, 1],
+            [1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 0, 1, 0, 1, 1, 0, 1],
+            [1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 0, 0, 1],
+            [1, 0, 1, 0, 0, 0, 0, 1, 1, 0, 1, 0, 0, 0, 1, 0, 1, 0, 1, 1],
+            [1, 0, 0, 0, 0, 1, 2, 1, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1],
+            [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+        ],
+        // Add more levels here, following the same structure as above...
+    ];
 
-    function resetGame() {
-        // Reset game state
+    // Initialize the level
+    function initLevel(levelIndex) {
+        Labirinto = levels[levelIndex];
         gameOver = false;
+        blueHovered = false;
         timerRunning = false;
         clearInterval(timerInterval);
         startTime = null;
-
-        // Reset the timer display
-        timerDisplay.textContent = 'Tempo: 0s';
-
-        // Re-render the maze
+        document.getElementById('timer').textContent = 'Tempo: 0s';
         render();
-
-        // Re-enable mouse movement interaction
         tela.addEventListener("mousemove", mouseMoveHandler);
     }
-    
-    tela.addEventListener("mousemove", (event) => {
+
+    const startButton = document.getElementById('Start');
+    startButton.addEventListener('click', () => {
+        currentLevel = 0; // Start from level 0
+        initLevel(currentLevel);
+    });
+
+    function mouseMoveHandler(event) {
         if (!gameOver) {
             const rect = tela.getBoundingClientRect();
             const mouseX = event.clientX - rect.left;
             const mouseY = event.clientY - rect.top;
             checkCollisionWithMouse(mouseX, mouseY);
         }
-    });
+    }
 
     function checkCollisionWithMouse(mouseX, mouseY) {
         const gridX = Math.floor(mouseX / tamanho);
         const gridY = Math.floor(mouseY / tamanho);
 
-        // Start the timer when the mouse hovers over the blue area
+        // Start timer when the blue area (start) is hovered
         if (Labirinto[gridY] && Labirinto[gridY][gridX] === 3 && !timerRunning) {
-            // Start the timer only if it's not already running
             startTime = Date.now();
-            timerInterval = setInterval(updateTimer, 1000); // Update every second
-            timerRunning = true; // Set the flag that the timer is running
+            timerInterval = setInterval(updateTimer, 1000);
+            timerRunning = true;
+            blueHovered = true;
         }
 
-        // Stop the timer when the mouse hovers over the green area
-        if (Labirinto[gridY] && Labirinto[gridY][gridX] === 2) {
-            clearInterval(timerInterval); // Stop the timer
-            timerRunning = false; // Reset timer state
-            alert("Você venceu! " + document.getElementById('timer').textContent);
-            gameOver = true; // Mark game as over
+        // Stop the timer when green area (finish) is reached
+        if (blueHovered && Labirinto[gridY] && Labirinto[gridY][gridX] === 2) {
+            clearInterval(timerInterval);
+            timerRunning = false;
+            alert("Você venceu! Tempo: " + document.getElementById('timer').textContent);
+            gameOver = true;
+            tela.removeEventListener("mousemove", mouseMoveHandler);
         }
 
-        // Stop the timer if the mouse hits the wall (black area)
+        // Stop the game if the player hits a wall
         if (Labirinto[gridY] && Labirinto[gridY][gridX] === 1) {
-            clearInterval(timerInterval); // Stop the timer
+            clearInterval(timerInterval);
             timerRunning = false;
             alert("Você perdeu! Você bateu na parede.");
-            gameOver = true; // Mark game as over
+            gameOver = true;
+            tela.removeEventListener("mousemove", mouseMoveHandler);
         }
     }
 
@@ -124,11 +130,9 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 
-    // Add a div to display the timer
+    // Initial setup
     const timerDisplay = document.createElement('div');
     timerDisplay.id = 'timer';
     timerDisplay.textContent = 'Tempo: 0s';
     document.querySelector('.container').appendChild(timerDisplay);
-
-    render();
 });
