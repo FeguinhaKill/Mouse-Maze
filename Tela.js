@@ -3,14 +3,15 @@ document.addEventListener("DOMContentLoaded", function() {
     const conteudo = tela.getContext('2d');
     
     const tamanho = 30;
-    let gameOver = false;
+    let jogoFinalizado = false;
     let comecarTempo = null;
-    let timerIntervalo;
-    let TimerCorrendo = false;
-    let PassouAzul = false; 
-    let Labirinto;
+    let intervaloDoTimer;
+    let tempoCorrendo = false;
+    let passouAzul = false; 
+    let labirinto;
+    let horaInicio = null;
 
-    const Niveis = [
+    const niveis = [
         [
             [1, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
             [1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1],
@@ -33,104 +34,103 @@ document.addEventListener("DOMContentLoaded", function() {
             [1, 0, 0, 0, 0, 1, 2, 1, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1],
             [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
         ],
-        
     ];
 
     
-    function comecarLevel(y) {
-        Labirinto = Niveis[y];
-        gameOver = false;
-        blueHovered = false;
-        timerRunning = false;
-        clearInterval(timerInterval);
+    function comecarNivel(y) {
+        labirinto = niveis[y];
+        jogoFinalizado = false;
+        passouAzul = false;
+        tempoCorrendo = false;
+        clearInterval(intervaloDoTimer);
         comecarTempo = null;
         document.getElementById('timer').textContent = 'Tempo: 0s';
-        render();
-        tela.addEventListener("mousemove", mouseMoveHandler);
+        renderizar();
+        tela.addEventListener("mousemove", moverMouseHandler);
     }
 
-    const startButton = document.getElementById('Start');
-    startButton.addEventListener('click', () => {
-        currentLevel = 0; // Start from level 0
-        initLevel(currentLevel);
+    const botaoIniciar = document.getElementById('Start');
+    botaoIniciar.addEventListener('click', () => {
+        nivelAtual = 0; // Começa do nível 0
+        comecarNivel(nivelAtual); 
     });
 
-    function mouseMoveHandler(event) {
-        if (!gameOver) {
+    function moverMouseHandler(event) {
+        if (!jogoFinalizado) {
             const rect = tela.getBoundingClientRect();
             const mouseX = event.clientX - rect.left;
             const mouseY = event.clientY - rect.top;
-            checkCollisionWithMouse(mouseX, mouseY);
+            verificarColisaoComMouse(mouseX, mouseY);
         }
     }
 
-    function checkCollisionWithMouse(mouseX, mouseY) {
+    function verificarColisaoComMouse(mouseX, mouseY) {
         const gridX = Math.floor(mouseX / tamanho);
         const gridY = Math.floor(mouseY / tamanho);
 
-        // Start timer when the blue area (start) is hovered
-        if (Labirinto[gridY] && Labirinto[gridY][gridX] === 3 && !timerRunning) {
-            startTime = Date.now();
-            timerInterval = setInterval(updateTimer, 1000);
-            timerRunning = true;
-            PassouAzul = true;
+        // Começar o timer quando a área azul (início) é passada
+        if (labirinto[gridY] && labirinto[gridY][gridX] === 3 && !tempoCorrendo) {
+            horaInicio = Date.now();
+            intervaloDoTimer = setInterval(atualizarTempo, 1000);
+            tempoCorrendo = true;
+            passouAzul = true;
         }
 
-        // Stop the timer when green area (finish) is reached
-        if (PassouAzul && Labirinto[gridY] && Labirinto[gridY][gridX] === 2) {
-            clearInterval(timerInterval);
-            timerRunning = false;
+        // Parar o timer quando a área verde (fim) é alcançada
+        if (passouAzul && labirinto[gridY] && labirinto[gridY][gridX] === 2) {
+            clearInterval(intervaloDoTimer);
+            tempoCorrendo = false;
             alert("Você venceu! Tempo: " + document.getElementById('timer').textContent);
-            gameOver = true;
-            tela.removeEventListener("mousemove", mouseMoveHandler);
+            jogoFinalizado = true;
+            tela.removeEventListener("mousemove", moverMouseHandler);
         }
 
-        // Stop the game if the player hits a wall
-        if (Labirinto[gridY] && Labirinto[gridY][gridX] && PassouAzul === 1) {
-            clearInterval(timerInterval);
-            timerRunning = false;
+        // Parar o jogo se o jogador bater em uma parede
+        if (labirinto[gridY] && labirinto[gridY][gridX] && passouAzul === 1) {
+            clearInterval(intervaloDoTimer);
+            tempoCorrendo = false;
             alert("Você perdeu! Você bateu na parede.");
-            gameOver = true;
-            tela.removeEventListener("mousemove", mouseMoveHandler);
+            jogoFinalizado = true;
+            tela.removeEventListener("mousemove", moverMouseHandler);
         }
     }
 
-    function updateTimer() {
-        if (startTime && !gameOver) {
-            const currentTime = Date.now();
-            const elapsedTime = Math.floor((currentTime - startTime) / 1000);
-            document.getElementById('timer').textContent = `Tempo: ${elapsedTime}s`;
+    function atualizarTempo() {
+        if (horaInicio && !jogoFinalizado) {
+            const horaAtual = Date.now();
+            const tempoDecorrido = Math.floor((horaAtual - horaInicio) / 1000);
+            document.getElementById('timer').textContent = `Tempo: ${tempoDecorrido}s`;
         }
     }
 
-    function render() {
+    function renderizar() {
         conteudo.clearRect(0, 0, tela.width, tela.height);
-        drawLabirinto();
+        desenharLabirinto();
     }
 
-    function drawLabirinto() {
-        for (let linha = 0; linha < Labirinto.length; linha++) {
-            for (let coluna = 0; coluna < Labirinto[linha].length; coluna++) {
-                if (Labirinto[linha][coluna] === 1) {
-                    conteudo.fillStyle = 'black'; // Wall
+    function desenharLabirinto() {
+        for (let linha = 0; linha < labirinto.length; linha++) {
+            for (let coluna = 0; coluna < labirinto[linha].length; coluna++) {
+                if (labirinto[linha][coluna] === 1) {
+                    conteudo.fillStyle = 'black'; // Parede
                     conteudo.fillRect(coluna * tamanho, linha * tamanho, tamanho, tamanho);
-                } else if (Labirinto[linha][coluna] === 0) {
-                    conteudo.fillStyle = 'white'; // Empty space
+                } else if (labirinto[linha][coluna] === 0) {
+                    conteudo.fillStyle = 'white'; // Espaço vazio
                     conteudo.fillRect(coluna * tamanho, linha * tamanho, tamanho, tamanho);
-                } else if (Labirinto[linha][coluna] === 2) {
-                    conteudo.fillStyle = 'green'; // Finish
+                } else if (labirinto[linha][coluna] === 2) {
+                    conteudo.fillStyle = 'green'; // Fim
                     conteudo.fillRect(coluna * tamanho, linha * tamanho, tamanho, tamanho);
-                } else if (Labirinto[linha][coluna] === 3) {
-                    conteudo.fillStyle = 'blue'; // Start point
+                } else if (labirinto[linha][coluna] === 3) {
+                    conteudo.fillStyle = 'blue'; // Ponto de início
                     conteudo.fillRect(coluna * tamanho, linha * tamanho, tamanho, tamanho);
                 }
             }
         }
     }
 
-    // Initial setup
-    const timerDisplay = document.createElement('div');
-    timerDisplay.id = 'timer';
-    timerDisplay.textContent = 'Tempo: 0s';
-    document.querySelector('.container').appendChild(timerDisplay);
+    // Configuração inicial
+    const displayTimer = document.createElement('div');
+    displayTimer.id = 'timer';
+    displayTimer.textContent = 'Tempo: 0s';
+    document.querySelector('.container').appendChild(displayTimer);
 });
