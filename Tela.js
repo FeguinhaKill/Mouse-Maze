@@ -35,7 +35,35 @@ document.addEventListener("DOMContentLoaded", function() {
             [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
         ],
     ];
+    
+function desenharLabirinto() {
+        for (let linha = 0; linha < labirinto.length; linha++) {
+            for (let coluna = 0; coluna < labirinto[linha].length; coluna++) {
+                if (labirinto[linha][coluna] === 1) {
+                    conteudo.fillStyle = 'black'; // Parede
+                    conteudo.fillRect(coluna * tamanho, linha * tamanho, tamanho, tamanho);
+                } else if (labirinto[linha][coluna] === 0) {
+                    conteudo.fillStyle = 'white'; // Caminho
+                    conteudo.fillRect(coluna * tamanho, linha * tamanho, tamanho, tamanho);
+                } else if (labirinto[linha][coluna] === 2) {
+                    conteudo.fillStyle = 'green'; // Fim
+                    conteudo.fillRect(coluna * tamanho, linha * tamanho, tamanho, tamanho);
+                } else if (labirinto[linha][coluna] === 3) {
+                    conteudo.fillStyle = 'blue'; // Inicio
+                    conteudo.fillRect(coluna * tamanho, linha * tamanho, tamanho, tamanho);
+                }
+            }
+        }
+    }
 
+    function renderizar() {
+        conteudo.clearRect(0, 0, tela.width, tela.height);
+        desenharLabirinto();
+    const displayTimer = document.createElement('div');
+    displayTimer.id = 'timer';
+    displayTimer.textContent = 'Tempo: 0s';
+    document.querySelector('.container').appendChild(displayTimer);
+});
     
     function comecarNivel(y) {
         labirinto = niveis[y];
@@ -82,7 +110,6 @@ document.addEventListener("DOMContentLoaded", function() {
             alert("Você venceu! " + document.getElementById('timer').textContent);
             jogoFinalizado = true;
             tela.removeEventListener("mousemove", moverMouseHandler);
-            // Redireciona para o próximo nível (Nivel2.html)
             window.location.href = "Nivel2.html";
         }
 
@@ -103,33 +130,6 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 
-    function renderizar() {
-        conteudo.clearRect(0, 0, tela.width, tela.height);
-        desenharLabirinto();
     }
 
-    function desenharLabirinto() {
-        for (let linha = 0; linha < labirinto.length; linha++) {
-            for (let coluna = 0; coluna < labirinto[linha].length; coluna++) {
-                if (labirinto[linha][coluna] === 1) {
-                    conteudo.fillStyle = 'black'; // Parede
-                    conteudo.fillRect(coluna * tamanho, linha * tamanho, tamanho, tamanho);
-                } else if (labirinto[linha][coluna] === 0) {
-                    conteudo.fillStyle = 'white'; // Caminho
-                    conteudo.fillRect(coluna * tamanho, linha * tamanho, tamanho, tamanho);
-                } else if (labirinto[linha][coluna] === 2) {
-                    conteudo.fillStyle = 'green'; // Fim
-                    conteudo.fillRect(coluna * tamanho, linha * tamanho, tamanho, tamanho);
-                } else if (labirinto[linha][coluna] === 3) {
-                    conteudo.fillStyle = 'blue'; // Inicio
-                    conteudo.fillRect(coluna * tamanho, linha * tamanho, tamanho, tamanho);
-                }
-            }
-        }
-    }
-
-    const displayTimer = document.createElement('div');
-    displayTimer.id = 'timer';
-    displayTimer.textContent = 'Tempo: 0s';
-    document.querySelector('.container').appendChild(displayTimer);
-});
+    
