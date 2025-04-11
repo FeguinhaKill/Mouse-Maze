@@ -51,7 +51,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     const botaoIniciar = document.getElementById('Start');
     botaoIniciar.addEventListener('click', () => {
-        nivelAtual = 0; // Começa do nível 0
+        nivelAtual = 0;
         comecarNivel(nivelAtual); 
     });
 
@@ -68,7 +68,7 @@ document.addEventListener("DOMContentLoaded", function() {
         const gridX = Math.floor(mouseX / tamanho);
         const gridY = Math.floor(mouseY / tamanho);
 
-        // Começar o timer quando a área azul (início) é passada
+        
         if (labirinto[gridY] && labirinto[gridY][gridX] === 3 && !tempoCorrendo) {
             horaInicio = Date.now();
             intervaloDoTimer = setInterval(atualizarTempo, 1000);
@@ -76,7 +76,6 @@ document.addEventListener("DOMContentLoaded", function() {
             passouAzul = true;
         }
 
-        // Parar o timer quando a área verde (fim) é alcançada
         if (passouAzul && labirinto[gridY] && labirinto[gridY][gridX] === 2) {
             clearInterval(intervaloDoTimer);
             tempoCorrendo = false;
@@ -85,7 +84,6 @@ document.addEventListener("DOMContentLoaded", function() {
             tela.removeEventListener("mousemove", moverMouseHandler);
         }
 
-        // Parar o jogo se o jogador bater em uma parede
         if (labirinto[gridY] && labirinto[gridY][gridX] && passouAzul === 1) {
             clearInterval(intervaloDoTimer);
             tempoCorrendo = false;
@@ -128,7 +126,6 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 
-    // Configuração inicial
     const displayTimer = document.createElement('div');
     displayTimer.id = 'timer';
     displayTimer.textContent = 'Tempo: 0s';
