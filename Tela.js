@@ -4,15 +4,13 @@ document.addEventListener("DOMContentLoaded", function() {
     
     const tamanho = 30;
     let gameOver = false;
-    let startTime = null;
-    let timerInterval;
-    let timerRunning = false;
-    let blueHovered = false; // Track if blue (start) has been hovered
-    let currentLevel = 0; // Track the current level
+    let comecarTempo = null;
+    let timerIntervalo;
+    let TimerCorrendo = false;
+    let PassouAzul = false; 
     let Labirinto;
 
-    const levels = [
-        // Level 1
+    const Niveis = [
         [
             [1, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
             [1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1],
@@ -35,17 +33,17 @@ document.addEventListener("DOMContentLoaded", function() {
             [1, 0, 0, 0, 0, 1, 2, 1, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1],
             [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
         ],
-        // Add more levels here, following the same structure as above...
+        
     ];
 
-    // Initialize the level
-    function initLevel(levelIndex) {
-        Labirinto = levels[levelIndex];
+    
+    function comecarLevel(y) {
+        Labirinto = Niveis[y];
         gameOver = false;
         blueHovered = false;
         timerRunning = false;
         clearInterval(timerInterval);
-        startTime = null;
+        comecarTempo = null;
         document.getElementById('timer').textContent = 'Tempo: 0s';
         render();
         tela.addEventListener("mousemove", mouseMoveHandler);
