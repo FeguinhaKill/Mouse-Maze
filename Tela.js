@@ -63,7 +63,7 @@ function desenharLabirinto() {
     displayTimer.id = 'timer';
     displayTimer.textContent = 'Tempo: 0s';
     document.querySelector('.container').appendChild(displayTimer);
-});
+};
     
     function comecarNivel(y) {
         labirinto = niveis[y];
