@@ -82,9 +82,11 @@ document.addEventListener("DOMContentLoaded", function() {
             alert("Você venceu! " + document.getElementById('timer').textContent);
             jogoFinalizado = true;
             tela.removeEventListener("mousemove", moverMouseHandler);
+            // Redireciona para o próximo nível (Nivel2.html)
+            window.location.href = "Nivel2.html";
         }
 
-        if (labirinto[gridY] && labirinto[gridY][gridX] === 1 && passouAzul = true) {
+        if (labirinto[gridY] && labirinto[gridY][gridX] === 1 && passouAzul) {
             clearInterval(intervaloDoTimer);
             tempoCorrendo = false;
             alert("Você perdeu! Você bateu na parede.");
