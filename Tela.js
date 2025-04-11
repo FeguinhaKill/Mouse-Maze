@@ -129,7 +129,5 @@ function desenharLabirinto() {
             document.getElementById('timer').textContent = `Tempo: ${tempoDecorrido}s`;
         }
     }
-
     }
-
-    )
+);
