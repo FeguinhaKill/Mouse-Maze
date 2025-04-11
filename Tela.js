@@ -79,12 +79,12 @@ document.addEventListener("DOMContentLoaded", function() {
         if (passouAzul && labirinto[gridY] && labirinto[gridY][gridX] === 2) {
             clearInterval(intervaloDoTimer);
             tempoCorrendo = false;
-            alert("Você venceu! Tempo: " + document.getElementById('timer').textContent);
+            alert("Você venceu! " + document.getElementById('timer').textContent);
             jogoFinalizado = true;
             tela.removeEventListener("mousemove", moverMouseHandler);
         }
 
-        if (labirinto[gridY] && labirinto[gridY][gridX] && passouAzul === 1) {
+        if (labirinto[gridY] && labirinto[gridY][gridX] === 1 && passouAzul = true) {
             clearInterval(intervaloDoTimer);
             tempoCorrendo = false;
             alert("Você perdeu! Você bateu na parede.");
@@ -113,13 +113,13 @@ document.addEventListener("DOMContentLoaded", function() {
                     conteudo.fillStyle = 'black'; // Parede
                     conteudo.fillRect(coluna * tamanho, linha * tamanho, tamanho, tamanho);
                 } else if (labirinto[linha][coluna] === 0) {
-                    conteudo.fillStyle = 'white'; // Espaço vazio
+                    conteudo.fillStyle = 'white'; // Caminho
                     conteudo.fillRect(coluna * tamanho, linha * tamanho, tamanho, tamanho);
                 } else if (labirinto[linha][coluna] === 2) {
                     conteudo.fillStyle = 'green'; // Fim
                     conteudo.fillRect(coluna * tamanho, linha * tamanho, tamanho, tamanho);
                 } else if (labirinto[linha][coluna] === 3) {
-                    conteudo.fillStyle = 'blue'; // Ponto de início
+                    conteudo.fillStyle = 'blue'; // Inicio
                     conteudo.fillRect(coluna * tamanho, linha * tamanho, tamanho, tamanho);
                 }
             }
